@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+    ms-sql-server:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        environment:
+            ACCEPT_EULA: "Y"
+            MSSQL_SA_PASSWORD: "yourStrong(!)Password"
+        ports:
+            - "1433:1433"
+    backend:
+        image: 4d29ebedc6fc
+        build: .
+        ports:
+            - "7213:80"
+        container_name: shopapi
+    frontend:
+        image: 4bc1cea129ea
+        build: ./Shop.Frontend/client
+        ports:
+            - "3000:3000"
+        container_name: reactfrontendshop
